@@ -1,5 +1,4 @@
-node_modules
-dist
-/dist
-# Keep environment variables out of version control
+node_modules/
+dist/
 .env
+package-lock.json
