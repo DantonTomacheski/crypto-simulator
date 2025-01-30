@@ -1,17 +1,5 @@
 import fetch from "node-fetch";
-
-// Interface para a resposta da API CoinGecko
-interface GeckoTrendingResponse {
-  coins: Array<{
-    item: {
-      id: string;
-      name: string;
-      symbol: string;
-      market_cap_rank: number;
-      price_btc: number;
-    };
-  }>;
-}
+import { GeckoTrendingResponse } from "../types/trending.types";
 
 const BASE_URL = "https://api.coingecko.com/api/v3/search/trending";
 
@@ -33,7 +21,7 @@ export const trendingService = {
       }
 
       const data = (await response.json()) as GeckoTrendingResponse;
-      return data.coins;
+      return data.coins; // Retorna os dados completos, sem cortar informações
     } catch (error) {
       console.error("Erro ao buscar dados do CoinGecko:", error);
       throw new Error("Falha ao obter trending coins");

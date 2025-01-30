@@ -1,12 +1,5 @@
 import fetch from "node-fetch";
-
-interface CoinGeckoMarketData {
-  id: string;
-  symbol: string;
-  name: string;
-  price_change_percentage_24h: number;
-  current_price: number;
-}
+import { CoinGeckoMarketData } from "../types/gainers.types";
 
 export const gainersService = {
   async fetchTopGainers(): Promise<CoinGeckoMarketData[]> {
