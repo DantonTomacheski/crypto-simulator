@@ -5,8 +5,7 @@ import authController from "../controllers/authController";
 import { authMiddleware } from "../middleware/auth";
 import { loginLimiter } from "../middleware/loginLimiter";
 import { trendingController } from "../controllers/trendingController";
-import gainersController from "../controllers/gainersController";
-import losersController from "../controllers/losersController";
+import { MarketCapController } from "../controllers/MarketCapController";
 
 const router = Router();
 
@@ -16,8 +15,8 @@ router.post("/register", authController.register);
 
 // Rotas de mercado (públicas)
 router.get("/trending", trendingController.getTrending);
-router.get("/gainers", gainersController.getTopGainers);
-router.get("/losers", losersController.getTopLosers);
+router.get("/top-marketcap", MarketCapController.getTopMarketCap);
+router.get("/low-marketcap", MarketCapController.getLowMarketCap);
 
 // Rotas de portfólio (protegidas)
 router.post("/portfolio", authMiddleware, portfolioController.addToPortfolio);
