@@ -10,7 +10,6 @@ export interface CoinData {
   price_change_percentage_24h: number | null;
   image: string;
   current_price_formatted: string;
-  change24h: string;
   sparkline_in_7d?: Sparkline;
 }
 

@@ -1,12 +1,14 @@
 import { Request, Response, NextFunction } from "express";
-import { gainersService } from "../services/gainersService";
-import { mktCaplosersService } from "../services/losersService";
 import { CoinData } from "../types/coin.types";
+import {
+  mktCapGainersService,
+  mktCaplosersService,
+} from "../services/MarketCapServices";
 
 const MarketCapController = {
   getTopMarketCap: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = await gainersService.fetchTopGainers();
+      const data = await mktCapGainersService.fetchTopGainers();
 
       const formattedData: CoinData[] = data.map((coin) => ({
         id: coin.id,
@@ -16,7 +18,6 @@ const MarketCapController = {
         current_price_formatted: coin.current_price_formatted,
         price_change_percentage_24h: coin.price_change_percentage_24h,
         sparkline_in_7d: coin.sparkline_in_7d,
-        change24h: coin.change24h,
         image: coin.image,
       }));
 
@@ -39,7 +40,6 @@ const MarketCapController = {
         current_price_formatted: coin.current_price_formatted,
         price_change_percentage_24h: coin.price_change_percentage_24h,
         sparkline_in_7d: coin.sparkline_in_7d,
-        change24h: coin.change24h,
         image: coin.image,
       }));
 
