@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { CoinData } from "../types/coin.types";
-import { priceChangeService } from "../services/PriceChangeServices";
+import { topGainersLosersService } from "../services/topGainersLosersService";
 
 const TopGainersLosersController = {
   getTopGainersAndLosers: async (req: Request, res: Response) => {
     try {
       const { gainers, losers } =
-        await priceChangeService.fetchTopGainersAndLosers();
+        await topGainersLosersService.fetchTopGainersAndLosers();
 
       const formatCoinData = (coin: CoinData) => ({
         id: coin.id,
@@ -15,12 +15,12 @@ const TopGainersLosersController = {
         current_price: coin.current_price,
         current_price_formatted: coin.current_price_formatted,
         price_change_percentage_24h: coin.price_change_percentage_24h,
-        sparkline_in_7d: coin.sparkline_in_7d,
         image: coin.image,
+        sparkline_in_7d: coin.sparkline_in_7d,
       });
 
       res.json({
-        source: "CoinGecko",
+        source: "CoinMarketCap",
         data: {
           top_gainers: gainers.map(formatCoinData),
           top_losers: losers.map(formatCoinData),
@@ -29,6 +29,7 @@ const TopGainersLosersController = {
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Erro desconhecido";
+      console.error("Erro na controller:", message);
       res.status(500).json({ error: message });
     }
   },
